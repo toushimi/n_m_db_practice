@@ -1,0 +1,29 @@
+<% provide(:title, 'Sign up') %>
+<h1>Sign Up</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+
+      <%= f.label :nickname %>
+      <%= f.text_field :nickname, class: 'form-control' %>
+      <br />
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+      <br />
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+      <br />
+
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+      <br />
+
+      <%= f.submit "Sign up", class: "btn btn-primary" %>
+    <% end %>
+
+    <p>アカウントが無い場合は<%= link_to "こちら", signup_path %></p>
+  </div>
+</div>
