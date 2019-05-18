@@ -19,9 +19,9 @@ bundle install --path="vendor/bundle"
 
 ## Database creation
 ```mysql
-CREATE DATABASE 'n_m_db_practice'@'localhost';
+CREATE DATABASE n_m_db_practice;
 CREATE USER 'n_m_db_practice'@'localhost';
-GRANT ALL ON 'n_m_db_practice'.* TO 'n_m_db_practice'@'localhost';
+GRANT ALL ON n_m_db_practice.* TO 'n_m_db_practice'@'localhost';
 ```
 
 ## Database initialization
@@ -31,6 +31,12 @@ bundle exec rails db:seed
 ```
 
 ## How to run the test suite
+```mysql
+CREATE DATABASE n_m_db_practice_test;
+CREATE USER 'n_m_db_practice'@'localhost';
+GRANT ALL ON n_m_db_practice_test.* TO 'n_m_db_practice'@'localhost';
+```
+
 ```bash
 bundle exec rails spec
 ```
