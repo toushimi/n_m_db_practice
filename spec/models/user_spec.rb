@@ -88,4 +88,24 @@ RSpec.describe User, type: :model do
     @user.nickname = 'test_2'
     expect(@user.valid?).to be_truthy
   end
+
+  it 'can list owner users' do
+    @user.save
+    group1 = build(:group)
+    group1.owner = @user
+    group1.save
+    group2 = build(:group)
+    group2.owner = @user
+    group2.save
+    expect(@user.owner_groups).to match_array([group1,group2])
+  end
+
+  it 'can list member of groups' do
+    @user.save
+    group1 = create(:group)
+    group2 = create(:group)
+    @user.join(group1)
+    @user.join(group2)
+    expect(@user.groups).to match_array([group1,group2])
+  end
 end

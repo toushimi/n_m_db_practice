@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :owner_groups, class_name: 'Group', foreign_key: :owner_id
+  has_many :user_groups
+  has_many :groups, through: :user_groups
+
   VALIDATE_EMAIL_REGEX = /.+@.+/
 
   validates :nickname, presence: true
@@ -28,6 +32,14 @@ class User < ApplicationRecord
       usergroup.destroy
     else
       false
+    end
+  end
+
+  def self.find_by_nickname_or_email(param)
+    if param[:username].include?('@')
+      find_by_email(param[:username])
+    else
+      find_by_nickname(param[:username])
     end
   end
 end
