@@ -1,0 +1,17 @@
+<h1><%= @group.name %></h1>
+
+<div id="description">
+  <span class="key">Owner:</span><span class="value"><%= link_to @owner.nickname, user_path(@owner) %></span><br>
+  <span class="key">説明:</span><span class="value"><%= @group.description %></span>
+</div>
+
+<div id="members">
+  <h2>グループのメンバー</h2>
+  <table>
+    <% @group.users.each do |member| %>
+      <tr>
+        <td><%= link_to member.name, users_path(member) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

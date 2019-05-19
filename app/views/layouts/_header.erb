@@ -1,0 +1,12 @@
+<header>
+  <div  id="navigate-">
+    <% if user_signed_in? %>
+      <li><%= link_to 'グループの作成', new_group_path %></li>
+      <li><%= link_to 'プロフィール', mypage_path %></li>
+      <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+    <% else %>
+      <li><%= link_to 'ログイン', new_user_session_path %></li>
+      <li><%= link_to 'サインアップ', new_user_registration_path %></li>
+    <% end %>
+  </div>
+</header>

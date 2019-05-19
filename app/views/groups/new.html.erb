@@ -1,0 +1,18 @@
+<h1>グループ作成</h1>
+
+<%= form_for(@group) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "作成" %>
+  </div>
+<% end %>
