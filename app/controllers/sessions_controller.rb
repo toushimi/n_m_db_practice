@@ -1,17 +1,22 @@
 class SessionsController < ApplicationController
   def new
+    redirect_to 'mypage' if current_user
     @user = User.new
   end
 
   def create
-    if @user.authenticate(authenticate_param)
-
+    user = User.find_by_nickname_or_email(params[:session])
+    if user&.authenticate(params[:session][:password])
+      log_in user
+      redirect_to user
+    else
+      flash.now[:danger] = 'ユーザー名・メールアドレス・パスワードが間違っています'
+      render 'sessions/new'
     end
   end
 
-  private
-
-  def authenticate_param
-    params.require(:user).permit(:email,:nickname,:password)
+  def destroy
+    log_out
+    redirect_to root_url
   end
 end

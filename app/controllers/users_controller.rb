@@ -13,6 +13,12 @@ class UsersController < ApplicationController
 
   end
 
+  def show
+  end
+
+  def mypage
+    @user = current_user
+  end
   private
 
   def signup_param

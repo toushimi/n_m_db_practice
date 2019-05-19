@@ -1,0 +1,4 @@
+<%= form_for Group.new, :url => {action: :leave, controller: :groups}  do |f| %>
+  <%= f.hidden_field :id, value: group.id %>
+  <%= f.submit '抜ける' %>
+<% end %>

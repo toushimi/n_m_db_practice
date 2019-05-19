@@ -1,0 +1,39 @@
+<h1>マイページ</h1>
+
+<div id="userinfo">
+  <div id="name"><span class="key">名前: </span><span class="value"><%= current_user.nickname %></span></div>
+  <div id="email"><span class="key">メールアドレス: </span><span class="value"><%= current_user.email %></span></div>
+</div>
+
+<div id="owner_groups">
+  <table>
+    <tr>
+      <th>グループ名</th>
+      <th>グループの説明</th>
+    </tr>
+    <% current_user.owner_groups.each do |group| %>
+      <tr>
+        <td><%= link_to group.name, group_path(group.id) %></td>
+        <td><%= group.description %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div id="member_of_groups">
+  <table>
+    <tr>
+      <th>グループ名</th>
+      <th>グループの説明</th>
+    </tr>
+    <% current_user.groups.each do |group| %>
+      <tr>
+        <td><%= link_to group.name, group_path(group.id) %></td>
+        <td><%= group.description %></td>
+        <td>
+          <%= render 'layouts/leave' %>
+          /td>
+      </tr>
+    <% end %>
+  </table>
+</div>
