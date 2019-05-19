@@ -1,17 +1,30 @@
 <h1><%= @group.name %></h1>
 
-<div id="description">
-  <span class="key">Owner:</span><span class="value"><%= link_to @owner.nickname, user_path(@owner) %></span><br>
+<% if logged_in? %>
+  <% if current_user.groups.include?(@group) %>
+    <span class="group-leave"><%= render 'layouts/leave', local: {group: @group } %></span>
+  <% elsif current_user == @group.owner %>
+    <span class="group-owner">あなたはグループの所有者です</span>
+  <% else %>
+    <span class="group-join"><%= render 'layouts/join' %></span>
+  <% end %>
+<% end %>
+<div id="group-info">
+  <span class="key">管理者:</span><span class="value"><%= link_to @owner.nickname, user_path(@owner) %></span><br>
   <span class="key">説明:</span><span class="value"><%= @group.description %></span>
 </div>
 
 <div id="members">
   <h2>グループのメンバー</h2>
+  <% if @group.users.empty? %>
+    <span class="empty-member">グループのメンバーはまだいません</span>
+  <% else %>
   <table>
     <% @group.users.each do |member| %>
       <tr>
-        <td><%= link_to member.name, users_path(member) %></td>
+        <td><%= link_to member.nickname, user_path(member) %></td>
       </tr>
     <% end %>
   </table>
+  <% end %>
 </div>

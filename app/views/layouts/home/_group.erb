@@ -1,0 +1,15 @@
+<div id="home-group">
+  <h2>新しいグループ</h2>
+  <table>
+    <tr>
+      <th class="table-header">グループ名</th>
+      <th class="table-header">説明</th>
+    </tr>
+  <% @groups.each do |group| %>
+    <tr>
+      <td class="table-value"><%= link_to group.name,group_path(group) %></td>
+      <td class="table-value"><%= group.description %></tr>
+    </tr>
+  <% end %>
+  </table>
+</div>

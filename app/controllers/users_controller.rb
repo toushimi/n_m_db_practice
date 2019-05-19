@@ -14,11 +14,25 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
   end
 
   def mypage
     @user = current_user
   end
+
+  def join
+    group = Group.find(params[:group][:id])
+    current_user.join(group)
+    redirect_back fallback_location: mypage_path
+  end
+
+  def leave
+    group = Group.find(params[:group][:id])
+    current_user.leave(group)
+    redirect_back fallback_location: mypage_path
+  end
+
   private
 
   def signup_param

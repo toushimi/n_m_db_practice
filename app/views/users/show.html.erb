@@ -1,0 +1,47 @@
+<h1><%= @user.nickname %>さんのプロフィール</h1>
+
+<div id="userinfo">
+  <div id="name"><span class="key">名前: </span><span class="value"><%= @user.nickname %></span></div>
+  <div id="email"><span class="key">メールアドレス: </span><span class="value"><%= @user.email %></span></div>
+</div>
+
+<div id="owner_groups">
+  <h2>作成したグループ</h2>
+  <% if @user.owner_groups.empty? %>
+    <span>作成したグループはありません</span>
+  <% else %>
+    <table>
+      <tr>
+        <td class="td-header">グループ名</td>
+        <td class="td-header">グループの説明</td>
+      </tr>
+      <% @user.owner_groups.each do |group| %>
+        <tr>
+          <td class="td-value"><%= link_to group.name, group_path(group) %></td>
+          <td class="td-value"><%= group.description %></td>
+
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+
+<div id="member_group">
+  <h2>所属しているグループ</h2>
+  <% if @user.groups.empty? %>
+  <span>所属しているグループはありません</span>
+  <% else %>
+  <table>
+    <tr>
+      <th>グループ名</th>
+      <th>グループの説明</th>
+    </tr>
+    <% @user.groups.each do |group| %>
+      <tr>
+        <td><%= link_to group.name, group_path(group) %></td>
+        <td><%= group.description %></td>
+      </tr>
+    <% end %>
+  </table>
+  <% end %>
+</div>

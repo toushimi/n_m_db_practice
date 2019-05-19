@@ -1,4 +1,4 @@
-<%= form_for Group.new, :url => {action: :join, controller: :groups}  do |f| %>
+<%= form_for Group.new, :url => {action: :join, controller: :users}  do |f| %>
   <%= f.hidden_field :id, value: group.id %>
   <%= f.submit '参加する' %>
 <% end %>

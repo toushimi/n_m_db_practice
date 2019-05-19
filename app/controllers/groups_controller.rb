@@ -20,7 +20,15 @@ class GroupsController < ApplicationController
     @owner = @group.owner
   end
 
+  def index
+    @group = Group.order('id DESC').limit(10)
+  end
+
   private
+
+  def group_member_param
+    params.require(:group).permit(:id)
+  end
 
   def group_create_param
     params.require(:group).permit(:name, :description)

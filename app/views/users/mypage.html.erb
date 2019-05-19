@@ -6,6 +6,10 @@
 </div>
 
 <div id="owner_groups">
+  <h2>管理しているグループ</h2>
+  <% if current_user.owner_groups.empty? %>
+    <span class="empty-group">管理しているグループはありません。新しいグループは<%= link_to 'ここから', new_group_path %>作成できます</span>
+  <% else %>
   <table>
     <tr>
       <th>グループ名</th>
@@ -15,12 +19,18 @@
       <tr>
         <td><%= link_to group.name, group_path(group.id) %></td>
         <td><%= group.description %></td>
+        <%= render partial: 'layouts/leave', locals: {group: group} %>
       </tr>
     <% end %>
   </table>
+  <% end %>
 </div>
 
 <div id="member_of_groups">
+  <h2>参加しているグループ</h2>
+  <% if current_user.groups.empty? %>
+    <span class="empty-group">参加しているグループはありません。新しいグループは<%= link_to 'ここから', groups_path %>見つけられます</span>
+  <% else %>
   <table>
     <tr>
       <th>グループ名</th>
@@ -31,9 +41,10 @@
         <td><%= link_to group.name, group_path(group.id) %></td>
         <td><%= group.description %></td>
         <td>
-          <%= render 'layouts/leave' %>
-          /td>
+          <%= render partial: 'layouts/leave',locals: {group: group } %>
+        </td>
       </tr>
     <% end %>
+  <% end %>
   </table>
 </div>
