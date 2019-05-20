@@ -33,6 +33,21 @@ class UsersController < ApplicationController
     redirect_back fallback_location: mypage_path
   end
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    user = User.find(params[:id])
+    user.update_attributes(group_param)
+    if user.valid?
+      user.save
+      redirect_to user_path(user.id)
+    else
+      redirect_to edit_user_path(user.id)
+    end
+  end
+
   private
 
   def signup_param

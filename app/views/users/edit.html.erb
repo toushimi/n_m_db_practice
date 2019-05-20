@@ -1,0 +1,5 @@
+<% provide(:title, "プロフィール編集") %>
+
+<h1><%= yield(:title) %></h1>
+
+<%= render partial: 'user_form', locals: { user: current_user, button: '更新', action: :update } %>

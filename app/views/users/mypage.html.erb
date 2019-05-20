@@ -3,6 +3,7 @@
 <div id="userinfo">
   <div id="name"><span class="key">名前: </span><span class="value"><%= current_user.nickname %></span></div>
   <div id="email"><span class="key">メールアドレス: </span><span class="value"><%= current_user.email %></span></div>
+  <div id="edit"><%= link_to 'プロフィールを編集', mypage_edit_path %></div>
 </div>
 
 <div id="owner_groups">
@@ -19,7 +20,6 @@
       <tr>
         <td><%= link_to group.name, group_path(group.id) %></td>
         <td><%= group.description %></td>
-        <%= render partial: 'layouts/leave', locals: {group: group} %>
       </tr>
     <% end %>
   </table>
