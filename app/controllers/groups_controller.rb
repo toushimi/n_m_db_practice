@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
   end
 
   def index
-    @group = Group.order('id DESC').limit(10)
+    @groups = Group.order('id DESC').limit(10)
   end
 
   def edit

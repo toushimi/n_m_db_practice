@@ -1,0 +1,22 @@
+<h1>グループリスト</h1>
+<div id="index-groups">
+  <table>
+    <tr>
+      <th class="header">グループ名</th>
+      <th class="header">グループの説明</th>
+    </tr>
+    <% @groups.each do |group| %>
+      <tr>
+        <td class="td-value"><%= link_to group.name, group_path(group) %></td>
+        <td class="td-value"><%= group.description %></td>
+        <% if current_user.groups.include?(group) %>
+          <td class="td-value"><%= render partial: 'layouts/leave', locals: {group: group} %></td>
+        <% elsif group.owner == current_user %>
+          <td class="td-value">あなたは管理者です</td>
+        <% else %>
+          <td class="td-value"><%= render partial: 'layouts/join',  locals: {group: group} %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>

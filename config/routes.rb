@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'mypage/edit', to: 'users#edit'
   patch 'mypage/edit', to: 'users#update'
   resources :users, only: [:new,:create,:show]
-  resources :groups, only: [:new,:create,:show,:edit,:update]
+  resources :groups, only: [:index,:new,:create,:show,:edit,:update]
 
   post 'groups/:id/invite', to: 'groups#invite', as: 'invite'
   post 'groups/:id/kick',   to: 'groups#kick',   as: 'kick'
