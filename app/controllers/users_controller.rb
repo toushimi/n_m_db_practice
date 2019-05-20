@@ -6,11 +6,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(signup_param)
     if @user.save
-      render 'static_pages/home'
+      redirect_to login_path
     else
-      render 'users/new'
+      redirect_to new_user_path
     end
-
   end
 
   def show

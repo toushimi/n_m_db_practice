@@ -8,10 +8,10 @@ class SessionsController < ApplicationController
     user = User.find_by_nickname_or_email(params[:session])
     if user&.authenticate(params[:session][:password])
       log_in user
-      redirect_to user
+      redirect_to mypage_path
     else
       flash.now[:danger] = 'ユーザー名・メールアドレス・パスワードが間違っています'
-      render 'sessions/new'
+      render login_path
     end
   end
 

@@ -1,4 +1,5 @@
 <div  id="header">
+    <li><%= link_to 'トップページ', root_path %></li>
   <% if logged_in? %>
     <li><%= link_to 'グループの作成', new_group_path %></li>
     <li><%= link_to "#{current_user.nickname}", mypage_path %> でログイン中</li>
