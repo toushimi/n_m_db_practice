@@ -76,4 +76,14 @@ RSpec.describe Group, type: :model do
     expect(@group.kick(@member)).to be_falsey
     expect(@group.users).to be_empty
   end
+
+  it 'is valid group name with japanese character(utf8)' do
+    @group.name = 'テスト'
+    expect(@group.valid?).to be_truthy
+  end
+
+  it 'is valid group description with japanese character(utf8)' do
+    @group.description = 'テスト'
+    expect(@group.valid?).to be_truthy
+  end
 end
