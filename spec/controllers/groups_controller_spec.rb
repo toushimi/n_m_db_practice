@@ -41,6 +41,22 @@ RSpec.describe GroupsController, type: :controller do
       posted_group = Group.find_by_name group.name
       expect(response).to redirect_to group_path(posted_group)
     end
+
+    it 'returns to back with invalid post request and not insert to database' do
+      user = create(:user)
+      session[:user_id] = user.id
+      group = build(:group)
+      post :create, params: {
+        group: {
+          name: '',
+          description: group.description
+        }
+      }
+
+      expect(response).to have_http_status 200
+      expect(Group.count).to eq 0
+    end
+
   end
 
 end

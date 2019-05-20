@@ -86,4 +86,10 @@ RSpec.describe Group, type: :model do
     @group.description = 'テスト'
     expect(@group.valid?).to be_truthy
   end
+
+  it 'is invalid with empty name' do
+    @group.name = ''
+    expect(@group.valid?).to be_falsey
+  end
+
 end
