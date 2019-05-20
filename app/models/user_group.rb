@@ -8,7 +8,7 @@ class UserGroup < ApplicationRecord
   validate  :valid_member
 
   def valid_member
-    if user == group.owner
+    if user && group && user == group.owner
       errors.add(:user, 'グループ所有者はメンバーになれません')
     end
   end
