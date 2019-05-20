@@ -1,0 +1,5 @@
+<% provide(:title, "グループ編集") %>
+
+<h1><%= yield(:title) %></h1>
+
+<%= render partial: 'group_form', locals: { group: @group, button: '更新' } %>

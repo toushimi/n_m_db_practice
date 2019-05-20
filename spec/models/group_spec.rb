@@ -45,6 +45,12 @@ RSpec.describe Group, type: :model do
     expect(usergroup.group_id).to eq(@group.id)
   end
 
+  it 'cannot invite user' do
+    @group.save
+    expect(@group.invite(@group.owner)).to be_falsey
+    expect(@group.users).to be_empty
+  end
+
   it 'can kick user' do
     @group.save
     @group.invite(@member)

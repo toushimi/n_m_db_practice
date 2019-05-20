@@ -2,11 +2,12 @@
 
 <% if logged_in? %>
   <% if current_user.groups.include?(@group) %>
-    <span class="group-leave"><%= render 'layouts/leave', local: {group: @group } %></span>
+    <span class="group-leave"><%= render partial: 'layouts/leave', locals: {group: @group } %></span>
   <% elsif current_user == @group.owner %>
-    <span class="group-owner">あなたはグループの所有者です</span>
+    <span class="group-owner">あなたはグループの所有者です。</span>
+    <span class="group-edit"><%= link_to '変更する', edit_group_path  %></span>
   <% else %>
-    <span class="group-join"><%= render 'layouts/join' %></span>
+    <span class="group-join"><%= render partial: 'layouts/join', locals: {group: @group } %></span>
   <% end %>
 <% end %>
 <div id="group-info">
