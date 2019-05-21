@@ -14,10 +14,31 @@ git clone https://github.com/toushimi/n_m_db_practice
 cd n_m_db_practice
 bundle install --path="vendor/bundle"
 ```
+
+## Credentials
+```
+EDITOR="vi" bundle exec rails credentials:edit
+```
+
+AWSのアクセスキーおよびシークレットを入力
+```yaml
+aws:
+    access_key_id: <access_key_id>
+    access_key_secret: <access_key_secret>
+```
+
+SESがサンドボックスの場合、外部へメールを送信できないため、[SES]->[Email Addresses]->[Verify a New Email Address]から許可する必要がある。
+
 ## Configuration
 * bundle exec 
 
 ## Database creation
+```
+bundle exec db:create
+```
+
+または
+
 ```mysql
 CREATE DATABASE n_m_db_practice;
 CREATE USER 'n_m_db_practice'@'localhost';
@@ -27,10 +48,10 @@ GRANT ALL ON n_m_db_practice.* TO 'n_m_db_practice'@'localhost';
 ## Database initialization
 ```bash
 bundle exec rails db:migrate
-bundle exec rails db:seed
 ```
 
 ## How to run the test suite
+
 ```mysql
 CREATE DATABASE n_m_db_practice_test;
 CREATE USER 'n_m_db_practice'@'localhost';
@@ -38,6 +59,7 @@ GRANT ALL ON n_m_db_practice_test.* TO 'n_m_db_practice'@'localhost';
 ```
 
 ```bash
+bundle exec rails db:migrate
 bundle exec rails spec
 ```
 

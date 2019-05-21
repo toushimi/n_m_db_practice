@@ -108,4 +108,16 @@ RSpec.describe User, type: :model do
     @user.join(group2)
     expect(@user.groups).to match_array([group1,group2])
   end
+
+  it 'can read confirm_token after create' do
+    @user.save
+    expect(@user.confirm_token).to be_a(String)
+  end
+
+  it 'is valid to email activate' do
+    @user.save
+    @user.email_activate
+    expect(@user.email_confirmed).to be_truthy
+    expect(@user.confirm_token).to be_nil
+  end
 end

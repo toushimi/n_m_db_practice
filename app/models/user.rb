@@ -15,6 +15,15 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validates :email, format: VALIDATE_EMAIL_REGEX
   validates :password, length: { minimum: 6 }
+  before_create :confirmation_token
+
+  def self.find_by_nickname_or_email(param)
+    if param[:username].include?('@')
+      find_by_email(param[:username])
+    else
+      find_by_nickname(param[:username])
+    end
+  end
 
   def join(group)
     usergroup = UserGroup.new({user: self, group: group})
@@ -35,11 +44,18 @@ class User < ApplicationRecord
     end
   end
 
-  def self.find_by_nickname_or_email(param)
-    if param[:username].include?('@')
-      find_by_email(param[:username])
-    else
-      find_by_nickname(param[:username])
+  def email_activate
+    self.email_confirmed = true
+    self.confirm_token = nil
+    save!(validate: false)
+
+  end
+
+  private
+
+  def confirmation_token
+    if confirm_token.blank?
+      self.confirm_token = SecureRandom.urlsafe_base64.to_s
     end
   end
 end

@@ -1,0 +1,6 @@
+<%= @user.nickname %> さん、
+
+登録ありがとうございます。
+メールアドレスの確認のため、下記URLをクリックしてください。
+
+<%= confirm_email_user_url(@user.confirm_token) %>
