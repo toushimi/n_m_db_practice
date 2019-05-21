@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(signup_param)
+    @user = User.new(user_param)
     if @user.save
       UserMailer.registration_confirmation(@user).deliver
       redirect_to login_path
@@ -39,12 +39,12 @@ class UsersController < ApplicationController
 
   def update
     user = current_user
-    user.update_attributes(group_param)
+    user.update_attributes(user_param)
     if user.valid?
       user.save
-      redirect_to user_path(user.id)
+      redirect_to mypage_path
     else
-      redirect_to edit_user_path(user.id)
+      redirect_to mypage_edit_path
     end
   end
 
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 
   private
 
-  def signup_param
+  def user_param
     params.require(:user).permit(:nickname,:email,:password,:password_confirmation)
   end
 end

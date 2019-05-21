@@ -49,4 +49,21 @@ RSpec.describe UsersController, type: :controller do
     end
 
   end
+
+  describe "PATCH #update" do
+    it 'can change profile' do
+      user = create(:user)
+      session[:user_id] = user.id
+      patch :update, params: {
+        user: {
+          nickname: "toushimi",
+          email: user.email,
+          password: user.password,
+          password_confirmation: user.password
+        }
+      }
+      expect(response).to redirect_to mypage_path
+    end
+  end
+
 end
