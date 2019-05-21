@@ -1,0 +1,9 @@
+- name: configure nginx
+  become: true
+  copy:
+    src: "files/n_m_db_practice.conf"
+    dest: "/etc/nginx/conf.d/n_m_db_practice.conf"
+- name: nginx restart
+  systemd:
+    name: nginx.service
+    state: restarted

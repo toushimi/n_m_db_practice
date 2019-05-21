@@ -1,0 +1,61 @@
+- name: deploy-production
+  become: true
+  become_user: ruby
+  git:
+    repo: https://github.com/toushimi/n_m_db_practice
+    dest: /var/www/n_m_db_practice
+- name: install master.key
+  lineinfile:
+    create: yes
+    line: "{{ master_key }}"
+    path: /var/www/n_m_db_practice/config/master.key
+- name: bundle install
+  become: true
+  become_user: ruby
+  command: /home/ruby/.rbenv/shims/bundle install --path=vendor/bundle
+  args:
+    chdir: "/var/www/n_m_db_practice"
+- name: "rails:db:migrate"
+  become: true
+  become_user: ruby
+  shell: "RAILS_ENV=production /home/ruby/.rbenv/shims/bundle exec rails db:migrate"
+  args:
+    chdir: "/var/www/n_m_db_practice"
+- name: "rails:assets:precompile"
+  become: true
+  become_user: ruby
+  shell: "RAILS_ENV=production /home/ruby/.rbenv/shims/bundle exec rails assets:precompile"
+  args:
+    chdir: "/var/www/n_m_db_practice"
+- name: registration puma to systemd
+  become: true
+  blockinfile:
+    path: "/usr/lib/systemd/system/n_m_db_practice.service"
+    create: yes
+    block: |
+      [Unit]
+      Description=Puma Application Server
+      After=network.target
+
+      [Service]
+      Type=simple
+      User=ruby
+      WorkingDirectory=/var/www/n_m_db_practice
+      Environment="RAILS_ENV=production"
+      Environment="PORT=3000"
+      ExecStart=/home/ruby/.rbenv/shims/bundle exec puma -C config/puma.rb
+      TimeoutSec=300
+      Restart=always
+
+      [Install]
+      WantedBy=multi-user.target
+- name: reload systemd
+  become: true
+  systemd:
+    daemon_reload: yes
+- name: run rails
+  become: true
+  systemd:
+    enabled: true
+    name: n_m_db_practice.service
+    state: started
