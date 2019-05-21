@@ -1,0 +1,6 @@
+- name: open firewall
+  become: true
+  firewalld:
+    port: 80/tcp
+    permanent: true
+    state: enabled

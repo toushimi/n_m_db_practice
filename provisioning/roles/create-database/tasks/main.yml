@@ -1,0 +1,30 @@
+- name: Install mariadb-devel for bundle install
+  become: true
+  yum:
+    name: mariadb-devel
+- name: Install mariadb-server for run rails
+  become: true
+  yum:
+    name: mariadb-server
+- name: Install python3-PyMySQL for create database
+  become: true
+  yum:
+    name: MySQL-python
+- name: run mariadb-server
+  become: true
+  systemd:
+    state: started
+    name: mariadb
+    enabled: yes
+- name: create database
+  mysql_db:
+    name: n_m_db_practice
+    state: present
+    login_user: root
+    collation: utf8_general_ci
+- name: create user
+  mysql_user:
+    name: n_m_db_practice
+    host: localhost
+    login_user: root
+    priv: "n_m_db_practice.*:ALL"

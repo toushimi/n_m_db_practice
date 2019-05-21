@@ -1,0 +1,12 @@
+---
+- hosts: production
+  user: root
+  roles:
+    - useradd-ruby
+    - install-ruby
+    - install-rails
+    - create-database
+    - deploy-production
+    - install-nginx
+    - configure-nginx
+    - open-firewall

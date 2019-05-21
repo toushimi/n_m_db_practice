@@ -1,0 +1,53 @@
+---
+- name: Install git
+  become: true
+  yum:
+    name: git
+- name: git clone rbenv
+  become: true
+  become_user: ruby
+  git:
+    repo: 'https://github.com/rbenv/rbenv.git'
+    dest: "/home/ruby/.rbenv"
+- name: git clone rbenv-build
+  become: true
+  become_user: ruby
+  git:
+    repo: 'https://github.com/rbenv/ruby-build.git'
+    dest: "/home/ruby/.rbenv/plugins/ruby-build"
+- name: rbenv configuration
+  become: true
+  become_user: ruby
+  blockinfile:
+    path: "/home/ruby/.bash_profile"
+    block: |
+      export PATH="$HOME/.rbenv/bin:$PATH"
+      eval "$(rbenv init -)"
+- name: enable rbenv
+  become: true
+  become_user: ruby
+  command: "/home/ruby/.rbenv/bin/rbenv init -"
+- name: Install gcc
+  become: true
+  yum:
+    name: "gcc-c++"
+- name: Install openssl-devel
+  become: true
+  yum:
+    name: "openssl-devel"
+- name: Install readline-devel
+  become: true
+  yum:
+    name: "readline-devel"
+- name: Install zlib-devel
+  become: true
+  yum:
+    name: "zlib-devel"
+- name: Install ruby 2.6.3
+  become: true
+  become_user: ruby
+  command: "/home/ruby/.rbenv/bin/rbenv install 2.6.3 --skip-existing"
+- name: make global 2.6.3
+  become: true
+  become_user: ruby
+  command: "/home/ruby/.rbenv/bin/rbenv global 2.6.3"

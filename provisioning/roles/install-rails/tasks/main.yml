@@ -1,0 +1,16 @@
+---
+- name: Install bundler
+  become: true
+  become_user: ruby
+  gem:
+    name: "bundler"
+    executable: "/home/ruby/.rbenv/shims/gem"
+    user_install: false
+- name: create directory
+  become: true
+  file:
+    path: "/var/www"
+    state: "directory"
+    owner: "ruby"
+    group: "ruby"
+    mode: 0755

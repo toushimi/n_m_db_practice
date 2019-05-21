@@ -1,0 +1,6 @@
+- name: useradd-ruby
+  become: true
+  user:
+    name: ruby
+    shell: /sbin/nologin
+    home: /home/ruby
