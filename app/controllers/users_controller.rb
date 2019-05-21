@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
+    user = current_user
     user.update_attributes(group_param)
     if user.valid?
       user.save
