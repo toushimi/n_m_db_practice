@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-    redirect_to 'mypage' if current_user
+    redirect_to mypage_path if logged_in?
     @user = User.new
   end
 
