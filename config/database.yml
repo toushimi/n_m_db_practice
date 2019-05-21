@@ -50,6 +50,6 @@ test:
 #
 production:
   <<: *default
-  database: n_m_db_practice_production
+  database: n_m_db_practice
   username: n_m_db_practice
   password: <%= ENV['N_M_DB_PRACTICE_DATABASE_PASSWORD'] %>
