@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       redirect_to mypage_path
     else
       flash.now[:danger] = 'ユーザー名・メールアドレス・パスワードが間違っています'
-      render login_path
+      redirect_to login_path
     end
   end
 
