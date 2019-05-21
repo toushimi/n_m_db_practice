@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(signup_param)
     if @user.save
+      UserMailer.registration_confirmation(@user).deliver
       redirect_to login_path
     else
       redirect_to new_user_path
@@ -44,6 +45,16 @@ class UsersController < ApplicationController
       redirect_to user_path(user.id)
     else
       redirect_to edit_user_path(user.id)
+    end
+  end
+
+  def confirm_email
+    user = User.find_by_confirm_token(params[:id])
+    if user
+      user.email_activate
+      redirect_to login_path
+    else
+      redirect_to root_path
     end
   end
 

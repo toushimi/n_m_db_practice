@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
   get  'signup', to: 'users#new'
+  post 'signup', to: 'users#create'
   get 'login',  to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
   get 'mypage', to: 'users#mypage'
   get 'mypage/edit', to: 'users#edit'
   patch 'mypage/edit', to: 'users#update'
-  resources :users, only: [:new,:create,:show]
+  resources :users, only: [:new,:create,:show] do
+    member do
+      get 'confirm_email'
+    end
+  end
   resources :groups, only: [:index,:new,:create,:show,:edit,:update]
 
   post 'groups/:id/invite', to: 'groups#invite', as: 'invite'
