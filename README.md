@@ -1,4 +1,5 @@
 # N_M_Database_Practice
+[![CircleCI](https://circleci.com/gh/toushimi/n_m_db_practice/tree/master.svg?style=svg&circle-token=80bd565c1fda00c0a3631d6c7477162d0e20c890)](https://circleci.com/gh/toushimi/n_m_db_practice/tree/master)
 
 N_Mのデータベース構造を持った環境の練習をするために作成した。
 
